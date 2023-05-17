@@ -1,6 +1,7 @@
 const express = require('express');
 const router = require('./routes.js');
 const bodyParser = require('body-parser');
+const { errors } = require('celebrate');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -18,6 +19,8 @@ app.use((req, res, next) => {
 app.use('/', router);
 
 app.use(express.static(__dirname + '/public'));
+
+app.use(errors());
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
