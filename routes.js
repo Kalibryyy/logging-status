@@ -22,7 +22,7 @@ router.post(
   celebrate({
     body: Joi.object().keys({
       id: [Joi.string().required(), Joi.number().required()],
-      groupId: [Joi.string(), Joi.number()],
+      groupId: Joi.string(),
       message: Joi.string().required().max(500),
       status: Joi.string().max(500),
       timestamp: Joi.number(),
