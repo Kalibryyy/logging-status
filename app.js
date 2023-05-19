@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 
 
-const { PORT = 3000 } = process.env;
+const { PORT = 8080 } = process.env;
 const app = express();
 
 app.use(helmet());
@@ -26,8 +26,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/', router);
-
-app.use(express.static(__dirname + '/public'));
 
 app.use(errors());
 

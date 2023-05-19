@@ -32,17 +32,20 @@ router.post(
     if (messages.find((msg) => msg.id && msg.id === req.body.id)) {
       res.status(500).send({ message: "сообщение с таким id уже есть" });
     } else if (
-      (req.body.status !== "info") &&
-      (req.body.status !== "warning") &&
-      (req.body.status !== "error")
+      req.body.status !== "info" &&
+      req.body.status !== "warning" &&
+      req.body.status !== "error"
     ) {
       res.status(500).send({ message: "неверно указан статус" });
     }
 
-    messages.push(req.body);
+    const newMessage = req.body;
 
-    res.send(messages);
-    // res.send(req.body);
+    messages.push(newMessage);
+
+    res
+      .status(201)
+      .send({ message: "сообщение добавлено", message: newMessage });
   }
 );
 
