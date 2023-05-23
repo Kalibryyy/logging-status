@@ -22,7 +22,7 @@ router.post(
   celebrate({
     body: Joi.object().keys({
       id: [Joi.string().required(), Joi.number().required()],
-      groupId: [Joi.string(), Joi.number()],
+      groupId: Joi.string(),
       message: Joi.string().required().max(500),
       status: Joi.string().max(500),
       timestamp: Joi.number(),
@@ -31,12 +31,14 @@ router.post(
   (req, res) => {
     if (messages.find((msg) => msg.id && msg.id === req.body.id)) {
       res.status(500).send({ message: "сообщение с таким id уже есть" });
+      return;
     } else if (
       req.body.status !== "info" &&
       req.body.status !== "warning" &&
       req.body.status !== "error"
     ) {
       res.status(500).send({ message: "неверно указан статус" });
+      return;
     }
 
     const newMessage = req.body;
