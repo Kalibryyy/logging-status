@@ -30,7 +30,7 @@ router.post(
   }),
   (req, res) => {
     if (messages.find((msg) => msg.id && msg.id === req.body.id)) {
-      res.status(500).send({ message: "сообщение с таким id уже есть" });
+      res.status(400).send({ message: "сообщение с таким id уже есть" });
       return;
     } else if (
       req.body.status !== "info" &&
@@ -43,7 +43,7 @@ router.post(
 
     const newMessage = req.body;
 
-    messages.push(newMessage);
+    messages.unshift(newMessage);
 
     res
       .status(201)
