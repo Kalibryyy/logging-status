@@ -3,18 +3,18 @@ const { celebrate, Joi } = require("celebrate");
 const { messages } = require("./db.js");
 
 router.get("/messages", (req, res) => {
-  res.send(messages);
+  res.send(messages.slice().reverse());
 });
 
 router.get("/messages/:groupId", (req, res) => {
-  const searchedMsg = messages.filter(
+  const searchedMsgs = messages.filter(
     (msg) => msg.groupId === req.params.groupId
   );
-  if (searchedMsg.length === 0) {
+  if (searchedMsgs.length === 0) {
     res.status(404).send({ message: "сообщение не найдено" });
   }
 
-  res.send(searchedMsg);
+  res.send(searchedMsgs);
 });
 
 router.post(
@@ -43,7 +43,7 @@ router.post(
 
     const newMessage = req.body;
 
-    messages.unshift(newMessage);
+    messages.push(newMessage);
 
     res
       .status(201)
