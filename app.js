@@ -1,6 +1,5 @@
 const express = require('express');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const router = require('./routes.js');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
@@ -10,11 +9,6 @@ const { PORT = 8080 } = process.env;
 const app = express();
 
 app.use(helmet());
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100
-});
-app.use(limiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
